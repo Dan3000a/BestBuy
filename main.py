@@ -1,22 +1,29 @@
 from products import Product
+from store import Store
 
 def main():
-    try:
-        bose = Product("Bose QuietComfort Earbuds", price=250, quantity=500)
-        mac = Product("MacBook Air M2", price=1450, quantity=100)
+    # Step 1: Create a list of products
+    product_list = [
+        Product("MacBook Air M2", price=1450, quantity=100),
+        Product("Bose QuietComfort Earbuds", price=250, quantity=500),
+        Product("Google Pixel 7", price=500, quantity=250)
+    ]
 
-        print(bose.buy(50))  # Buy 50 units of Bose, should print total price
-        print(mac.buy(100))  # Buy all MacBooks, should print total price
-        print(mac.is_active())  # MacBook should now be inactive
+    # Step 2: Initialize the store with the list of products
+    store = Store(product_list)
 
-        print(bose.show())  # Show details of Bose
-        print(mac.show())   # Show details of MacBook
+    # Step 3: Retrieve all active products
+    products = store.get_all_products()
 
-        bose.set_quantity(1000)  # Update quantity for Bose
-        print(bose.show())  # Show updated details
+    # Step 4: Print the total quantity of products in the store
+    print("Total quantity in store:", store.get_total_quantity())
 
-    except Exception as e:
-        print(f"Error: {e}")
+    # Step 5: Place an order for some products and print the total cost
+    total_cost = store.order([
+        (products[0], 1),  # Buy 1 MacBook Air M2
+        (products[1], 2)   # Buy 2 Bose QuietComfort Earbuds
+    ])
+    print(f"Total cost of the order: ${total_cost}")
 
 if __name__ == "__main__":
     main()
