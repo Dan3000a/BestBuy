@@ -1,6 +1,18 @@
 from typing import List, Tuple  # Standard import
 from products import Product
 
+
+def order(shopping_list: List[Tuple[Product, int]]) -> float:
+    """
+    Processes a shopping list and calculates the total order cost.
+    Each item in shopping_list is a tuple: (Product, quantity).
+    """
+    total_price = 0.0
+    for product, quantity in shopping_list:
+        total_price += product.buy(quantity)
+    return total_price
+
+
 class Store:
     """
     Represents a store that holds a list of products.
@@ -29,12 +41,10 @@ class Store:
         """Returns a list of all active products."""
         return [product for product in self.products if product.is_active()]
 
-    def order(self, shopping_list: List[Tuple[Product, int]]) -> float:
+    @staticmethod
+    def is_valid_product(product: Product) -> bool:
         """
-        Processes a shopping list and calculates the total order cost.
-        Each item in shopping_list is a tuple: (Product, quantity).
+        Checks if a product is valid (example static method).
+        This is an example of a method that doesn't use 'self'.
         """
-        total_price = 0.0
-        for product, quantity in shopping_list:
-            total_price += product.buy(quantity)
-        return total_price
+        return isinstance(product, Product) and product.is_active()
