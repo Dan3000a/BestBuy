@@ -1,5 +1,5 @@
+from typing import List, Tuple  # Standard import
 from products import Product
-from typing import List, Tuple
 
 class Store:
     """
